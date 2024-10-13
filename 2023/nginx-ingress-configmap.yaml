@@ -1,0 +1,61 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: nginx-configuration
+  namespace: kube-system
+  labels:
+    app: ingress-nginx
+data:
+  allow-snippet-annotations: "true"
+  allow-backend-server-header: "true"
+  disable-access-log: "false"
+  enable-underscores-in-headers: "true"
+  generate-request-id: "true"
+  ignore-invalid-headers: "true"
+  keep-alive: "300"
+  keep-alive-requests: "10000"
+  large-client-header-buffers: "5 20k"
+  log-format-upstream: |-
+    {
+      "@timestamp": "$time_iso8601",
+      "remote_addr": "$remote_addr",
+      "x-forward-for": "$proxy_add_x_forwarded_for",
+      "request_id": "$req_id",
+      "remote_user": "$remote_user",
+      "bytes_sent": $bytes_sent,
+      "request_time": $request_time,
+      "status": $status,
+      "vhost": "$host",
+      "request_proto": "$server_protocol",
+      "path": "$uri",
+      "request_query": "$args",
+      "request_length": $request_length,
+      "duration": $request_time,
+      "method": "$request_method",
+      "http_referrer": "$http_referer",
+      "http_user_agent": "$http_user_agent",
+      "upstream-sever": "$proxy_upstream_name",
+      "proxy_alternative_upstream_name": "$proxy_alternative_upstream_name",
+      "upstream_addr": "$upstream_addr",
+      "upstream_response_length": $upstream_response_length,
+      "upstream_response_time": $upstream_response_time,
+      "upstream_status": $upstream_status
+    }
+  max-worker-connections: "65536"
+  proxy-body-size: "200m"
+  proxy-connect-timeout: "60"
+  proxy-read-timeout: "300"
+  proxy-send-timeout: "300"
+  reuse-port: "true"
+  server-tokens: "false"
+  ssl-redirect: "false"
+  upstream-keepalive-connections: "300"
+  upstream-keepalive-requests: "10000"
+  upstream-keepalive-timeout: "900"
+  worker-cpu-affinity: ""
+  worker-processes: "4"
+  http-redirect-code: "301"
+  proxy_next_upstream: "error timeout http_502"
+  compute-full-forwarded-for: "true"
+  use-forwarded-headers: "true"
+  forwarded-for-header: "X-Forwarded-For"
